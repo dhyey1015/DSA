@@ -1,0 +1,15 @@
+######## for ubuntu ##############
+1) install g++
+
+        sudo apt update
+
+        sudo apt install build-essential
+
+        g++ --version
+
+2) run code 
+
+
+        g++ my_program.cpp -o my_program
+        
+        ./my_program
