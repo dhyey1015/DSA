@@ -101,3 +101,12 @@
         ABC
         AB
         A
+
+17)         A    
+           ABA   
+          ABCBA  
+         ABCDCBA 
+        ABCDEDCBA
+
+
+18)
