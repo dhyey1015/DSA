@@ -96,4 +96,8 @@
         DDDD
         EEEEE
 
-16)     
+16)     ABCDE
+        ABCD
+        ABC
+        AB
+        A
