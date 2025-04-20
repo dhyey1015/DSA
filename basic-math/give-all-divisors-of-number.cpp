@@ -2,7 +2,7 @@
 using namespace std;
 
 int main(){
-
+    // time complexity is O(sqrt(n));
     int n;
     cin >> n;
     set<int> s; // store the values in set if you want it in sorted order
