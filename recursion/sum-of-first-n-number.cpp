@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// this is functional resursion
+
 int printSumOfNNumbers(int i, int n, int sum){
     if(i > n){
         return sum;

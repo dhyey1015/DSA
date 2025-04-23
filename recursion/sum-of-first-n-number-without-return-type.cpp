@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+// this is parameterized recursion
 void printSumOfNNumbers(int i, int n, int sum){
     if(i > n){
         cout << "Sum of first " << n << " numbers is: " << sum << endl;
@@ -14,6 +14,6 @@ int main(){
     int n;
     cin >> n;
     printSumOfNNumbers(1, n, 0);
-    
+
     return 0;
 }
