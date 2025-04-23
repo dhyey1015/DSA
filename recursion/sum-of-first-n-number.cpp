@@ -5,8 +5,7 @@ int printSumOfNNumbers(int i, int n, int sum){
     if(i > n){
         return sum;
     }
-    sum += i;
-    return printSumOfNNumbers(i + 1, n, sum);
+    return printSumOfNNumbers(i + 1, n, sum + i);
 }
 
 int main(){
