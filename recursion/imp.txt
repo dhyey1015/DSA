@@ -1,0 +1,2 @@
+sum-of-first-n-number: used functional recursion to do it
+sum-of-first-n-number-without-return-type: used Parameterized recursion
