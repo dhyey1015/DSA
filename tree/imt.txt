@@ -56,3 +56,63 @@ public:
         return maxdiameter;
     }
 };
+
+
+####### Maximum Path sum ########
+
+->  
+Maximum path is the path in BT where to total of all values of node is Maximum
+    this path may or may not inculed root
+
+            -10
+            /  \
+           9    20
+               /  \
+              7   15 
+
+    Maximum path sum will be 7->20->15 7+20+15 = 42
+    
+
+    logic is that we know how to calcuate hight of the tree 1 + max(leftSubTree, rigthSubTree)
+    we can modify this logic like this node->val + max(leftSubTree, leftSubTree);
+    node->val + max(leftSubTree, leftSubTree)-------> this will give the lets assume we calculate for node 9
+    we will get node->val = 9 so leftSubTree = rigthSubTree = 0;  because left and right of node 9 is point to nullptr
+    so,     
+                node->val + max(leftSubTree, leftSubTree)
+              = 9 + max(0, 0);
+              = 9
+    it will retrn left of -10 node as 9 
+
+    this is the code
+
+    int calculatePathOfNode(TreeNode* node, int& maxPath){
+        if(node == 0) return 0;
+
+        int left = max(0, calculatePathOfNode(node->left, maxPath));
+        int right = max(0, calculatePathOfNode(node->right, maxPath));
+
+        maxPath = max(maxPath, left + right + node->val);
+        return node->val + max(left, right);
+    }
+
+    int maxPathSum(TreeNode* root){
+        int maxPath = INT_MIN;
+        calculatePathOfNode(root, maxPath);
+        return maxPath;
+    } 
+
+    int left = max(0, calculatePathOfNode(node->left, maxPath));
+    int right = max(0, calculatePathOfNode(node->right, maxPath));
+    this line will make sure that is left path or right path have negative it will ignore it directly
+    as negative value will never be considered in max path
+
+             10
+            /  \
+           9    20
+               /  \
+              7   -15 
+
+    now node 20 right is -15 so 
+    the line will be 
+    int right = max(0, calculatePathOfNode(node->right, maxPath)); // function is running for node 20
+    int right = max(0, -15); // function is running for node 20
