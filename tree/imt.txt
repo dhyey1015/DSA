@@ -116,3 +116,99 @@ Maximum path is the path in BT where to total of all values of node is Maximum
     the line will be 
     int right = max(0, calculatePathOfNode(node->right, maxPath)); // function is running for node 20
     int right = max(0, -15); // function is running for node 20
+    int right  = 0;
+    now as right become zero left = max(0, 7) = 7;
+    node->val = 20
+    node->val + max(left, right);
+    = 20 + max(7, 0);
+    = 20 + 7
+    = 27
+    so right path will get ignored and only left part is considered
+
+    why we are using this instead of maxPath = 0;
+    int maxPath = INT_MIN;
+
+    what if the tree is give like this only one node
+                -3
+    even thought its an negative value but it will be the maxpath sum
+    now if we defne maxPath = 0
+    this line will be like
+    maxPath = max(maxPath, left + right + node->val);
+    maxPath = max(0, -3);
+    so it will reutrn zero which is wrong
+
+    so with defined  maxPath = INT_MIN as any negative numeber whos absolute value is less than the absoulte or INT_MIN
+    will always be greater than INT_MIN value
+
+    INT_MIN value is =  -2147483648.
+    so the node value is not greater than  -2147483648. this value then the node value will be greater
+
+
+###### Boundary Traversal #######
+
+    Boundary Traversal means visiting all the Boundary node of a BT
+
+    Example:
+
+                1
+               / \
+              2   3
+             / \ / \
+            4  5 6  7
+
+    so Boundary Traversal will be 1->2->4->5->6->7->3->1 or 1->3->7->6->5->4->2->1
+
+
+    logic:
+
+    ->getting the left Boundary excluding the leaf nodes
+    ->then get he leaf nodes
+    ->then get the right Boundary in reverse excluding the leaf nodes
+
+    logic implementation brute force:
+
+    void gettingLeft(TreeNode* node, vector<int>& v){
+        while(node){
+            if(node->left || node->right) v.push_back(node->val);
+            if(node->left) node = node->left;
+            else node = node->right;
+        }
+    }
+
+    void gettingLeaf(TreeNode* node, vector<int>& v){
+        if(node == NULL) return;
+        if(node->left == NULL && node->right == NULL){
+            v.push_back(node->val);
+            return;
+        } 
+        gettingLeaf(node->left, v);
+        gettingLeaf(node->right, v);
+    }
+
+    void gettingRight(TreeNode* node, vector<int>& v){
+        vector<int> temp;
+        while(node){
+            if(node->left || node->right) temp.push_back(node->val);
+            if(node->right) node = node->right;
+            else node = node->left;
+        }
+        reverse(temp.begin(), temp.end());
+        v.insert(v.end(),temp.begin(), temp.end());
+    }
+
+    vector<int> boundary(TreeNode* root){
+        vector<int> ans;
+        if(root == NULL){
+            return ans;
+        }
+        if (!(root->left == NULL && root->right == NULL))
+            ans.push_back(root->val);
+
+        gettingLeft(root->left, ans);
+        gettingLeaf(root, ans);
+        gettingRight(root->right, ans );
+
+        return ans;
+    }
+    
+
