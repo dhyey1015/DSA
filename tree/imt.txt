@@ -212,3 +212,50 @@ Maximum path is the path in BT where to total of all values of node is Maximum
     }
     
 
+    logic implementation using DS:
+
+    first we need to get a DS that stores all node
+    now we will push the root of the tree in that DS
+    now we will go left of the the BT
+
+    now we will check 
+        if(node->left || node -> right) v.push_back(node->val);
+    if any exist push the current node value in DS
+
+    now as we are doing it for left we will check first
+        if(node->left)
+            node= node->left;
+        else 
+            node = node->rigth; 
+    if left exist go to left or else go to right
+    until we get 
+        node->left == NULL && node->rigth == NULL (condition for leaf node)
+    as soon as node meet the above condition stop the left boundary Traversal without pushing current node
+
+    now to get the leaf nodes we need to do inorder Traversal(root left right) 
+    for all the nodes in BT and find which nodes are leaf nodes and push them in DS;
+
+    now for right boundary in reverse we will start from the right of node 
+    we will initialize another DS as DS2
+    we will push all right boundary node in DS2
+    now we will check
+        if(node->left || node -> right) DS2.push_back(node->val);
+    if any exist push the current node in DS2
+
+    now as we are doing it for right we will check first
+        if(node->right)
+            node= node->right;
+        else 
+            node = node->leaf; 
+    if right exist go to right or else go to left
+    until we get 
+        node->left == NULL && node->rigth == NULL (condition for leaf node)
+    as soon as node meet the above condition stop the left boundary Traversal without pushing current nod
+
+    now reverse the DS2 and push all elements of DS2 in DS form back side 
+
+
+
+    
+    
+

@@ -12,10 +12,8 @@ struct TreeNode {
 
 void gettingLeft(TreeNode* node, vector<int>& v){
     while(node){
-        if(node->left || node->right){
-            if(!(node->left == NULL && node->right == NULL)){
-                v.push_back(node->val);
-            }
+        if(!(node->left == NULL && node->right == NULL)){
+            v.push_back(node->val);
         } 
         if(node->left) node = node->left;
         else node = node->right;
@@ -35,10 +33,8 @@ void gettingLeaf(TreeNode* node, vector<int>& v){
 void gettingRight(TreeNode* node, vector<int>& v){
     vector<int> temp;
     while(node){
-        if(node->left || node->right){
-            if(!(node->left == NULL && node->right == NULL)){
-                temp.push_back(node->val);
-            }
+        if(!(node->left == NULL && node->right == NULL)){
+            temp.push_back(node->val);
         }
         if(node->right) node = node->right;
         else node = node->left;
