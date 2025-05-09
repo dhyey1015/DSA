@@ -256,6 +256,31 @@ Maximum path is the path in BT where to total of all values of node is Maximum
 
 
 
+########## Symmetrical BT ###################
+
+    A BT is Symmetrical if it forms a mirror of itself around the center 
+
+    Example:
+
+                 1
+               /   \
+              2     2
+             / \   / \
+            3   4 4   3
+
+        logic doing both side differently
+        find preorder or root->left as root (do root left right)
+        find preorder or root->right as root (do root right left)
+        
+        check if both out are same id same tree is Symmetrical
+
+        logic doing both side simaltanously 
+        wrtie a function which takes 2 params as input 1)root->left as left 2) root->right as right
+        now if( left == NULL and right == NULL) return left == right;
+        if(left->val != right->val) return false;
+        return function(left->left, right->right) && function(left->right, right->left);
+
+
     
     
 
