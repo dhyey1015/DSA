@@ -280,6 +280,85 @@ Maximum path is the path in BT where to total of all values of node is Maximum
         if(left->val != right->val) return false;
         return function(left->left, right->right) && function(left->right, right->left);
 
+####### Path from root to node ###########
+
+    TODO:
+
+####### Lowest Commom ancestor ###########
+
+    the Lowest Commom ancestor is defined between nodes p and q as the Lowest node T that has
+    both p and q as decendants. where we allow a node to be decendant or itself
+
+    Example:
+                       1
+                     /   \
+                    2     3
+                   / \   / \
+                  4   5 8   9
+                     / \
+                    6   7
+        logic 1: 
+        ->  Space Complexity Analysis:
+                -> Path Vectors (pPath and qPath):
+                    path from the root to a leaf can be of length H, where H = height of the tree.
+                    So, each vector can store up to H TreeNode* pointers.
+                    Total space for both vectors: O(H) + O(H) = O(H)
+
+                -> Recursive Call Stack (from findPath function):
+                    Since it is a depth-first traversal, the recursion stack can also grow up to H in the worst case.
+                    Stack space: O(H)
+
+        -> Final Total space for both vectors: 
+                O(H) + O(H) = O(H)
+                it has SC = O(H) H is height of BT
+                    For a balanced tree: H = log N
+                    For a skewed tree: H = N
+            
+        -> So in the worst case, space complexity is O(N).
+
+            So,
+            lca(4, 7) 
+
+            find root to node path of for node 4 and for 7 store that path in a DS.
+
+            run a for loop on the vectors and check if the vector  have same lowest decendant if they have it
+            will be their LCA 
+
+            4's path is -> [1, 2, 4] 
+            (decendant is counted from left to right and hightest decendant(1) ot lowest decendant(4) )
+            7's path is -> [1, 2, 5, 7]
+            (decendant is counted from left to right and hightest decendant(1) ot lowest decendant(7) )
+
+            as we can see the lowest decendant is 2. so LCA will be 2.
+
+            code:
+
+                bool findPath(TreeNode* node, vector<TreeNode*>& v, TreeNode* target){
+                    if(node == NULL) return false;
+                    v.push_back(node);
+                    if(node->val == target->val) return true;
+                    if(findPath(node->left, v, target) || findPath(node->right, v,target)){
+                        return true;
+                    }
+                    v.pop_back();
+                    return false;
+                }
+                TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+                    vector<TreeNode*> pPath, qPath;
+                    findPath(root, pPath, p);
+                    findPath(root, qPath, q);
+                    int minLen = min(pPath.size(), qPath.size());
+                    TreeNode* lca = nullptr;
+                    for(int i = 0; i < minLen; i++){
+                        if(pPath[i] == qPath[i]){
+                            lca = pPath[i];
+                        } else {
+                            break;
+                        }
+                    }
+                    return lca;
+                }
+
 
     
     

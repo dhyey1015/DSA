@@ -25,7 +25,6 @@ bool findPath(TreeNode* node, vector<int>& v, int target){
     return false;
 }
 vector<int> rootToNodePath(TreeNode* root, int target){
-    
     vector<int> ans;
     if(root == NULL) return ans;
 
