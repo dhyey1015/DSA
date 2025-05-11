@@ -358,6 +358,28 @@ Maximum path is the path in BT where to total of all values of node is Maximum
                     }
                     return lca;
                 }
+        
+        logic 2: 
+        TreeNode* lowestCommonAncestor2(TreeNode* root, TreeNode* p, TreeNode* q) {
+            if(root == NULL || root == p || root == q) return root;
+            
+            TreeNode*  left = lowestCommonAncestor2(root->left, p, q);
+            TreeNode*  right = lowestCommonAncestor2(root->right, p, q);
+            
+            if(left != NULL && right != NULL) return root;
+
+            return left != NULL ? left : right;
+        }
+
+        start with root check if root == NULL || root == p || root == q if it is return root 
+        
+        go left and check if(root == NULL || root == p || root == q) return root if any is true return root 
+         
+        go right and check if(root == NULL || root == p || root == q) return root if any is ture return root
+
+        now check if if(left != NULL && right != NULL) return root;
+        
+         
 
 
     
