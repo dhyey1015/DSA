@@ -378,8 +378,19 @@ Maximum path is the path in BT where to total of all values of node is Maximum
         go right and check if(root == NULL || root == p || root == q) return root if any is ture return root
 
         now check if if(left != NULL && right != NULL) return root;
+
+        else return left or right on the basis of the wheather the left is null or right is null
+
+        the thing will happen is that 
+
+        ->  if a node return left = null and right = null then we can say sub tree of that node as root 
+            does not have p and q nodes
+        ->  if a node return left = null and right = some_value or left = some_value or right = null
+            the now which returned some_value will be the p or q and that will be return;
+        ->  if a node return left = some_value and right = some_value that means that node is LCA
         
-         
+
+
 
 
     
