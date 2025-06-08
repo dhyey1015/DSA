@@ -390,7 +390,54 @@ Maximum path is the path in BT where to total of all values of node is Maximum
         ->  if a node return left = some_value and right = some_value that means that node is LCA
         
 
+############## Children Sum Property ##########
 
+    Children sum Property states that the sum of  values of their Children should be equal to parents value
+
+                200
+                /  \
+              100  100
+              / \  / \
+             50 50 50 50
+    the above tree follows Children sum Property
+
+    logic to make a tree follow Children sum Property
+
+    come to root go to left child and then right take their value and add it 
+    if their total value is greater then root value then assign Children's total value to root
+    if their total is less then root value then assign root value to the left and right child
+
+    when you reach leaf node on both left and right then after that add the values of left and right and assign
+    that added value to the Children's root 
+
+    why this logic works? it works because as we go down we are assignning the val that is als greater or equal the root 
+    so that when afterwards when we go up adding left and right Childrens the addition will always be greater then their 
+    root
+
+    the code:
+        void changeTree(TreeNode* root){
+            if(root == NULL)return;
+            int child = 0;
+            if(root->left){
+                child += root->left->val;
+            }
+            if(root->right){
+                child += root->right->val;
+            }
+            if(child >= root->val) root->val = child;
+            else{
+                if(root->left) root->left->val = root->val;
+                if(root->right) root->right->val = root->val;
+            }
+
+            changeTree(root->left);
+            changeTree(root->right);
+
+            int total = 0;
+            if(root->left) total += root->left->val;
+            if(root->right) total += root->right->val;
+            if(root->left || root->right) root->val = total;
+        }
 
 
     
