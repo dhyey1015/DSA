@@ -439,6 +439,8 @@ Maximum path is the path in BT where to total of all values of node is Maximum
             if(root->left || root->right) root->val = total;
         }
 
+##### Minimum Time to Burn a BT #######
+
 
     
     
