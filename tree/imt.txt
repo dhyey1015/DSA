@@ -442,6 +442,10 @@ Maximum path is the path in BT where to total of all values of node is Maximum
 ##### Minimum Time to Burn a BT #######
 
 
+#### Count Total Nodes in a complete binary tree ##############
+
+
+##### vertical Order traversal of binary tree ###########
     
     
 
