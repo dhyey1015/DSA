@@ -597,6 +597,9 @@ Maximum path is the path in BT where to total of all values of node is Maximum
     
     https://www.youtube.com/watch?v=q_a6lpbKJdw
 
+#### construct a BT tree From preorder and inorder given ##########
+
+
 
     
 
