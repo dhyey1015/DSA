@@ -440,12 +440,163 @@ Maximum path is the path in BT where to total of all values of node is Maximum
         }
 
 ##### Minimum Time to Burn a BT #######
+    in this question it has been given a target node and root node of BT. we  have to fine the amount of time 
+    taken to burn this binary tree.
+    burning happens like this:
+        -> a can be burned if its not burned
+        -> you can only burn a node if its directly connected to the burned node
+    
+    Example:
 
+            1
+           / \
+          2   3
+         / \ / \
+        4  5 6  7
+
+        now target node is 2 so tree will start burning from the node 2 and first 1,4 and 5 will burn as they are directly
+        connected to node 2 now 3 will burn and the 6  and 7 will Burn
+        when we burn each directly connected node its one second that means when 1,4 and 5 got burned its was 1 second after
+        when 3 got burned it was 2 seconds and when 6 and 7 got burned it was 3 second 
+        it took 3 seconds to burn this binary tree.
+
+        we will use one unordered_map<node, node> to keep parent track as we will need to go up in tree
+        we will use one unordered_map<node, bool> to keep track if a node is burned or not
+        we will use level-Order traversal BFS
+
+        logic:
+            void parentTrack(TreeNode* root, unordered_map<TreeNode*, TreeNode*> &parent_track){
+                if(root == NULL) return;
+                queue<TreeNode*> q;
+                q.push(root);
+                while(!q.empty()){
+                    int size = q.size();
+                    for(int i = 0; i < size; i++){
+                        TreeNode* node = q.front();
+                        q.pop();
+                        if(node->left != NULL){
+                            parent_track[node->left] = node;
+                            q.push(node->left);
+                        }
+                        if(node->right != NULL){
+                            parent_track[node->right] = node;
+                            q.push(node->right);
+                        }
+                    }
+                }
+            }
+            TreeNode* findNode(TreeNode* root, int target){
+                if(root == NULL) return nullptr;
+                if(root->val == target) return root;
+                TreeNode* left = findNode(root->left, target);
+                if(left) return left;
+                TreeNode* right = findNode(root->right, target);
+                if(right) return right;
+                return nullptr;
+            }
+
+            int amountOfTime(TreeNode* root, int start) {
+                unordered_map<TreeNode*, TreeNode*> parent_track;
+                parentTrack(root, parent_track); 
+                TreeNode* start_node = findNode(root, start);
+                unordered_map<TreeNode*, bool> burned;
+                queue<TreeNode*> q;
+                q.push(start_node);
+                burned[start_node] = true;
+                int time = -1;
+                while(!q.empty()){
+                    int size = q.size();
+                    time++;
+                    for(int i = 0; i < size; i++){
+                        TreeNode* node = q.front();
+                        q.pop();
+                        if(node->left && !burned[node->left]){
+                            q.push(node->left);
+                            burned[node->left] = true;
+                        }
+                        if(node->right && !burned[node->right]){
+                            q.push(node->right);
+                            burned[node->right] = true;
+                        }
+                        if(parent_track[node] && !burned[parent_track[node]]){
+                            q.push(parent_track[node]);
+                            burned[parent_track[node]] = true;
+                        }
+                    }
+                }
+                return time;
+            }
 
 #### Count Total Nodes in a complete binary tree ##############
 
+    we will need to count number of node in BT
+
+    brute force approch:
+        use preorder, postorder, or inorder to count nodes.
+    
+    optimized approch:
+        we need to find the nodes in complete binary tree 
+        definition of complete binary tree is:
+
+            ->  According to Wikipedia, every level, except possibly the last, is completely filled in a 
+                complete binary tree, and all nodes in the last level are as far left as possible. It can have 
+                between 1 and 2h nodes inclusive at the last level h.
+        so we can use the Property of complete BT which is if from the root left leftTree height and rigthTree height
+        is equal then we can find the its total nodes using formula
+
+                2^h - 2
+
+            where h is the height of the tree
+            if the height of left tree and right is not same we can calcuate the nodes like 
+                    1 + left + right 
+            extra 1 is for the node 
+        Example:
+
+            1
+           / \
+          2   3
+         / \ / \
+        4  5 6  7
+
+        see from root 1 left height is 3 and right height is also 3 so formula
+
+            2^3 - 1 = 7
+            there are 7 nodes in BT
+    logic
+
+        int countNodes(TreeNode* root) {
+        if(root == NULL) return 0;
+
+        int leftHeight = countLeftHeight(root);
+        int rightHeight = countRightHeight(root);
+
+        if(leftHeight == rightHeight) return (1<<leftHeight) - 1;
+
+        return 1 + countNodes(root->left) + countNodes(root->right);
+        }
+
+        int countLeftHeight(TreeNode* node){
+            int height = 0;
+            while(node){
+                height++;
+                node = node->left;
+            }
+            return height;
+        }
+
+        int countRightHeight(TreeNode* node){
+            int height = 0;
+            while(node){
+                height++;
+                node = node->right;
+            }
+            return height;
+        }
 
 ##### vertical Order traversal of binary tree ###########
     
+    https://www.youtube.com/watch?v=q_a6lpbKJdw
+
+
     
 
